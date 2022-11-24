@@ -266,25 +266,28 @@ def simulateOperations():
     cursor.execute('''select * from usuario''')
     usuarios = cursor.fetchall()
     admin = AdminCreateRole(getUser("postgres","Manager123"))
-    for x in range(0,random.randint(0,5)):
-        username = name = password = str(names.get_first_name().lower()+str(random.randint(0,2000000)+x))
-        subscriptionType=""
-        paymentMethod = ""
-        if (random.randint(0,1)):
-            subscriptionType = "DIAMOND"
-        else:
-            subscriptionType = 'GOLD'
-        if (random.randint(0,1)):
-            paymentMethod = "DEBIT"
-        else:
-            paymentMethod = "CREDIT"
-        print('''
-        The admin {} created the user {} with the password {}\n'''.format(admin.worker_name,username,password))
-        admin.createUser(username,password,name,str(randomBirthdate()),str(1+random.random()),str(random.randint(50,500)),(names.get_full_name()),str(random.randint(12,50)),subscriptionType,paymentMethod,str(1234567890123456)) 
-    for x in range (0, random.randint(0,3)):
-        username = name = password = str(names.get_first_name().lower()+str(random.randint(0,100)+x+random.randint(0,100)))
-        print('''The admin {} created the instructor {} with the password {}'''.format(admin.worker_name,username,password))
-        admin.createInstructor(username,password,name,names.get_last_name(),str(random.randint(50,500)),str(1+random.random()))
+    try:
+        for x in range(0,random.randint(0,5)):
+            username = name = password = str(names.get_first_name().lower()+str(random.randint(0,2000000)+x))
+            subscriptionType=""
+            paymentMethod = ""
+            if (random.randint(0,1)):
+                subscriptionType = "DIAMOND"
+            else:
+                subscriptionType = 'GOLD'
+            if (random.randint(0,1)):
+                paymentMethod = "DEBIT"
+            else:
+                paymentMethod = "CREDIT"
+            print('''
+            The admin {} created the user {} with the password {}\n'''.format(admin.worker_name,username,password))
+            admin.createUser(username,password,name,str(randomBirthdate()),str(1+random.random()),str(random.randint(50,500)),(names.get_full_name()),str(random.randint(12,50)),subscriptionType,paymentMethod,str(1234567890123456)) 
+        for x in range (0, random.randint(0,3)):
+            username = name = password = str(names.get_first_name().lower()+str(random.randint(0,100)+x+random.randint(0,100)))
+            print('''The admin {} created the instructor {} with the password {}'''.format(admin.worker_name,username,password))
+            admin.createInstructor(username,password,name,names.get_last_name(),str(random.randint(50,500)),str(1+random.random()))       
+    except:
+        pass
     cursor.execute('''select * from worker where workertype = 'Instructor' ''')
     instructors = cursor.fetchall()
     for instructor in instructors:
